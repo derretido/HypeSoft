@@ -1,0 +1,22 @@
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: hypesoft_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: hypesoft_auth
+    command: start-dev
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+
+volumes:
+  mongo_data:
