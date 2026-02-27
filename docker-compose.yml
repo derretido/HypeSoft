@@ -1,3 +1,4 @@
+version: '3.8'
 
 services:
   mongodb:
@@ -15,8 +16,33 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
     ports:
       - "8080:8080"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hypesoft_api
+    ports:
+      - "5031:5031"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__MongoDb=mongodb://mongodb:27017/HypesoftDb
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./hypesoft-web
+      dockerfile: Dockerfile
+    container_name: hypesoft_web
+    ports:
+      - "5173:5173" # Mantendo a 5173 como você pediu por enquanto
+    depends_on:
+      - backend
 
 volumes:
   mongo_data:
