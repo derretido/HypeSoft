@@ -12,7 +12,8 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: hypesoft_auth
-    command: start-dev
+    # Inicia em modo dev e importa realms da pasta /opt/keycloak/data/import
+    command: start-dev --import-realm
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
@@ -22,6 +23,7 @@ services:
       - "8080:8080"
     volumes:
       - keycloak_data:/opt/keycloak/data
+      - ./keycloak/import:/opt/keycloak/data/import
 
   backend:
     build:
