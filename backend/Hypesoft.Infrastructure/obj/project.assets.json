@@ -1092,6 +1092,7 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "Hypesoft.Application >= 1.0.0",
+      "Hypesoft.Domain >= 1.0.0",
       "Microsoft.Extensions.Configuration.Abstractions >= 10.0.0-preview.1.25080.5",
       "Microsoft.Extensions.DependencyInjection.Abstractions >= 10.0.0-preview.1.25080.5",
       "Microsoft.Extensions.Logging.Abstractions >= 10.0.0-preview.1.25080.5",
@@ -1125,6 +1126,9 @@
           "projectReferences": {
             "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Application\\Hypesoft.Application.csproj": {
               "projectPath": "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Application\\Hypesoft.Application.csproj"
+            },
+            "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Domain\\Hypesoft.Domain.csproj": {
+              "projectPath": "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Domain\\Hypesoft.Domain.csproj"
             }
           }
         }

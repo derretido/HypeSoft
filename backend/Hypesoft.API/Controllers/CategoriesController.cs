@@ -5,34 +5,32 @@ using Hypesoft.Domain.Entities;
 
 namespace Hypesoft.API.Controllers;
 
-[Authorize] // Mantém a segurança do Keycloak
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
-
-// Controller para gerenciar categorias de produtos
 public class CategoriesController : ControllerBase
 {
-    private readonly IProductRepository _repository;
+    private readonly ICategoryRepository _repository;
 
-    public CategoriesController(IProductRepository repository)
+    public CategoriesController(ICategoryRepository repository)
     {
         _repository = repository;
     }
 
-    // get para listar todas as categorias
+    // GET: api/categories
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _repository.GetAllCategoriesAsync();
+        var result = await _repository.GetAllAsync();
         return Ok(result);
     }
 
-    // post para criar uma nova categoria
+    // POST: api/categories
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] string name)
     {
         var category = new Category(name);
-        await _repository.CreateCategoryAsync(category);
+        await _repository.AddAsync(category);
         return Ok(category);
     }
 }

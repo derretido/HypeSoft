@@ -172,6 +172,9 @@
             "projectReferences": {
               "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Application\\Hypesoft.Application.csproj": {
                 "projectPath": "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Application\\Hypesoft.Application.csproj"
+              },
+              "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Domain\\Hypesoft.Domain.csproj": {
+                "projectPath": "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Domain\\Hypesoft.Domain.csproj"
               }
             }
           }

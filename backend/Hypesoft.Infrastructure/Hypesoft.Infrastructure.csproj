@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hypesoft.Domain\Hypesoft.Domain.csproj" />
     <ProjectReference Include="..\Hypesoft.Application\Hypesoft.Application.csproj" />
   </ItemGroup>
 

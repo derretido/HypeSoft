@@ -26,6 +26,9 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
+              "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Domain\\Hypesoft.Domain.csproj": {
+                "projectPath": "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Domain\\Hypesoft.Domain.csproj"
+              },
               "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Infrastructure\\Hypesoft.Infrastructure.csproj": {
                 "projectPath": "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Infrastructure\\Hypesoft.Infrastructure.csproj"
               }
@@ -33,9 +36,6 @@
           }
         },
         "warningProperties": {
-          "noWarn": [
-            "NU1605"
-          ],
           "warnAsError": [
             "NU1605"
           ]
@@ -55,14 +55,6 @@
               "target": "Package",
               "version": "[9.0.0, )"
             },
-            "Microsoft.Extensions.DependencyInjection.Abstractions": {
-              "target": "Package",
-              "version": "[10.0.0-preview.1.25080.5, )"
-            },
-            "Microsoft.Extensions.Logging.Abstractions": {
-              "target": "Package",
-              "version": "[10.0.0-preview.1.25080.5, )"
-            },
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[3.6.0, )"
@@ -73,7 +65,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[10.1.4, )"
+              "version": "[6.6.2, )"
             }
           },
           "imports": [
@@ -267,6 +259,9 @@
             "projectReferences": {
               "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Application\\Hypesoft.Application.csproj": {
                 "projectPath": "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Application\\Hypesoft.Application.csproj"
+              },
+              "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Domain\\Hypesoft.Domain.csproj": {
+                "projectPath": "C:\\Users\\leona\\OneDrive\\Área de Trabalho\\HypeSoft\\backend\\Hypesoft.Domain\\Hypesoft.Domain.csproj"
               }
             }
           }

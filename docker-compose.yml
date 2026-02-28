@@ -20,6 +20,8 @@ services:
       KC_HTTP_ENABLED: "true"
     ports:
       - "8080:8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
 
   backend:
     build:
@@ -27,22 +29,24 @@ services:
       dockerfile: Dockerfile
     container_name: hypesoft_api
     ports:
-      - "5031:5031"
+      - "5000:5000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__MongoDb=mongodb://mongodb:27017/HypesoftDb
     depends_on:
       - mongodb
+      - keycloak
 
   frontend:
     build:
-      context: ./hypesoft-web
+      context: ./frontend
       dockerfile: Dockerfile
     container_name: hypesoft_web
     ports:
-      - "5173:5173" # Mantendo a 5173 como você pediu por enquanto
+      - "5173:80"
     depends_on:
       - backend
 
 volumes:
   mongo_data:
+  keycloak_data:
