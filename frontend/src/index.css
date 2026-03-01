@@ -1,18 +1,43 @@
 @import "tailwindcss";
 
+/* Fonte base */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
+/* Reset mais seguro */
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
   margin: 0;
-  display: flex;
-  place-content: flex-start;
+  padding: 0;
   min-width: 320px;
   min-height: 100vh;
   background-color: #f8fafc; /* slate-50 */
 }
 
+/* Root ocupa tudo */
 #root {
   width: 100%;
+  min-height: 100vh;
+}
+
+/* Spinner para tela de loading */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e5e7eb; /* cinza claro */
+  border-top: 4px solid #4f46e5; /* indigo */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

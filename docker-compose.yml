@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mongodb:
     image: mongo:latest
@@ -12,18 +10,24 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: hypesoft_auth
-    # Inicia em modo dev e importa realms da pasta /opt/keycloak/data/import
     command: start-dev --import-realm
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_HOSTNAME_STRICT: "false"
       KC_HTTP_ENABLED: "true"
+      # ajuda o Keycloak a reconhecer os headers de proxy, necessário para o ambiente de desenvolvimento
+      KC_PROXY_HEADERS: "xforwarded"
     ports:
       - "8080:8080"
     volumes:
       - keycloak_data:/opt/keycloak/data
       - ./keycloak/import:/opt/keycloak/data/import
+    healthcheck:
+      test: ["CMD", "sh", "-c", "wget -qO- http://localhost:8080/health/ready | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 60
 
   backend:
     build:
@@ -36,8 +40,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__MongoDb=mongodb://mongodb:27017/HypesoftDb
     depends_on:
-      - mongodb
-      - keycloak
+      mongodb:
+        condition: service_started
+      keycloak:
+        condition: service_healthy
 
   frontend:
     build:
@@ -47,7 +53,8 @@ services:
     ports:
       - "5173:80"
     depends_on:
-      - backend
+      backend:
+        condition: service_started
 
 volumes:
   mongo_data:
