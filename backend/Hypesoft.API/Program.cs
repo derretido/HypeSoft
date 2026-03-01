@@ -11,7 +11,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-// ✅ Swagger (Authorize)
+//Swagger (Authorize)
 using Microsoft.OpenApi.Models;
 
 #pragma warning disable CS0618
@@ -92,7 +92,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 
-// ✅ Swagger com botão Authorize (JWT Bearer)
+//Swagger com botão Authorize 
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo

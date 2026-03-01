@@ -1,151 +1,248 @@
-Projeto HYPESOFT – Minha Jornada em 5 Dias
+# 🚀 Projeto Hypesoft – Desafio Técnico
 
-Antes de falar da parte técnica, eu quero começar dizendo que estou muito feliz em fazer parte desse projeto tão legal e desafiador. Desde já, agradeço a oportunidade de estar participando desse processo seletivo. Sinto que estou no caminho certo para conquistar minha primeira oportunidade como Desenvolvedor Jr.
+## ✨ Introdução
 
-Esse desafio foi um verdadeiro misto de altos e baixos — um quebra-cabeça gigante para mim. Foram 5 dias intensos construindo tudo praticamente do zero, desenvolvendo totalmente no VSCode com IA integrada, fazendo muitas pesquisas, estudando documentação e aprendendo na prática para conseguir concluir um projeto completo como esse. No final, sinto que evoluí muito como desenvolvedor. Espero sinceramente que gostem do resultado. Agradeço novamente pela oportunidade.
+Antes de falar da parte técnica, quero começar dizendo que estou muito feliz por ter participado deste projeto tão desafiador. Desde já, agradeço a oportunidade de fazer parte deste processo seletivo. Sinto que estou no caminho certo para conquistar minha primeira oportunidade como Desenvolvedor Jr.
 
-🏗️ Estruturação e Base do Projeto
+Esse desafio foi um verdadeiro misto de altos e baixos — um grande quebra-cabeça técnico para mim. Foram **5 dias intensos** construindo praticamente tudo do zero, desenvolvendo no VSCode com apoio de IA integrada, pesquisando bastante, estudando documentação oficial e aprendendo na prática para conseguir concluir um projeto completo como este.
 
-No primeiro dia, configurei todo o ambiente utilizando Docker, criando o docker-compose.yml para integrar os serviços com o MongoDB e o Keycloak.
+Ao final, sinto que evoluí não apenas tecnicamente, mas também na forma de raciocinar, investigar problemas e estruturar soluções. Espero sinceramente que gostem do resultado. Agradeço novamente pela oportunidade.
 
-Estruturei o sistema em quatro camadas seguindo os princípios de Clean Architecture:
+---
 
-API
+# 📌 Sobre o Projeto
 
-Application
+Este projeto foi desenvolvido como parte de um desafio técnico e representa **5 dias intensos de construção prática**, resolução de problemas reais e evolução arquitetural.
 
-Domain
+Mais do que um CRUD, a aplicação evoluiu para um sistema completo com:
 
-Infrastructure
+- 🔐 Autenticação corporativa via Keycloak  
+- 🏗️ Arquitetura baseada em Clean Architecture  
+- 🗄️ Persistência com MongoDB  
+- ⚡ Backend em .NET 9  
+- 🌐 Frontend em React + Vite + Tailwind  
+- 🐳 Ambiente 100% containerizado com Docker  
 
-Essa separação garantiu organização, baixo acoplamento e facilidade de manutenção.
+---
 
-Também implementei as entidades Produto e Categoria, iniciando as regras de negócio, incluindo a lógica de alerta para estoque baixo (menos de 10 unidades). Realizei ainda a integração completa com o MongoDB para persistência dos dados.
+# 🏗️ Arquitetura do Sistema
 
-Inicialmente comecei a migração para o .NET 10, porém enfrentei erros relacionados ao pacote Microsoft.EntityFrameworkCore.MongoDB. Como solução estratégica, migrei o projeto para o .NET 9, resolvendo os conflitos de NuGet e permitindo seguir o desenvolvimento sem bloqueios.
+O projeto foi estruturado seguindo os princípios da **Clean Architecture**, dividido em quatro camadas:
 
-⚙️Estabilização da Arquitetura e Integrações
+- API  
+- Application  
+- Domain  
+- Infrastructure  
 
-No segundo dia, finalizei a estabilização da arquitetura, resolvendo problemas de referências circulares e organizando corretamente as responsabilidades entre as camadas.
+### 🎯 Benefícios dessa abordagem
 
-Corrigi a persistência com o MongoDB:
+- Separação clara de responsabilidades  
+- Baixo acoplamento  
+- Alta manutenibilidade  
+- Facilidade para testes e evolução futura  
 
-Ajustei a connection string
+---
 
-Configurei a serialização de GUID
+# ⚙️ Stack Tecnológica
 
-Padronizei o uso de GuidRepresentation.Standard
+## 🔹 Backend
 
-Registrei corretamente o AppDb no container de dependências
+- .NET 9  
+- MediatR  
+- MongoDB Driver  
+- JWT Authentication  
+- Swagger  
+- Keycloak  
 
-Também realizei um saneamento completo do banco utilizando o MongoDB Compass (Drop Collection) para remover dados antigos que estavam causando conflitos.
+## 🔹 Frontend
 
-🔌 Integração com MediatR
+- React  
+- Vite  
+- Axios  
+- Tailwind CSS  
+- Lucide React  
 
-Configurei o Program.cs para reconhecer todos os Handlers (Create, Update e GetAll), permitindo que a API deixasse de acessar o banco diretamente e passasse a utilizar um padrão desacoplado via MediatR.
+## 🔹 Infraestrutura
 
-Organizei a injeção de dependência:
+- Docker  
+- Docker Compose  
+- MongoDB  
+- Keycloak  
+- Mongo Express (porta 8081)  
 
-IMongoClient como Singleton
+---
 
-IProductRepository como Scoped
+# 🔐 Autenticação e Segurança
 
-Isso garantiu resolução correta das dependências por requisição.
+O sistema utiliza **Keycloak** para autenticação corporativa com:
 
-As rotas passaram a funcionar corretamente, retornando 200 OK, e o Swagger ficou ativo para testes na porta 5031.
+- Realm importado automaticamente via JSON  
+- Controle de acesso baseado em Roles:
+  - Admin  
+  - Viewer  
+- JWT validado no backend  
+- Refresh automático de token no frontend  
+- CORS configurado corretamente para múltiplas portas (3000 e 5173)  
 
-🌐 Comunicação Frontend e Backend
+---
 
-Configurei o CORS com a política AllowReactApp, resolvendo o bloqueio do navegador e permitindo que o frontend em React consumisse a API sem problemas.
+# 🗄️ Persistência de Dados
 
-No frontend (React + Vite), fiz uma limpeza removendo componentes e ícones não utilizados, eliminando warnings e deixando o código mais leve. Ajustei também as rotas de consumo da API para que o dashboard exibisse corretamente os produtos.
+**Banco:** MongoDB  
 
-🛠️ Problemas Técnicos Superados
+- Padronização de GUID com `GuidRepresentation.Standard`  
+- Correção de inconsistências entre:
+  - `id` vs `Id`
+  - `products` vs `Products`
+  - `categories` vs `Categories`
 
-Durante esse processo, enfrentei desafios importantes:
+Foi realizado saneamento completo do banco durante o desenvolvimento para evitar conflitos de serialização.
 
-O erro de FileNotFound do MongoDB (a famosa “DLL fantasma”)
+---
 
-Conflito de UUID entre formatos Legacy e Standard
+# 🧠 Problemas Técnicos Superados
 
-Conversão de System.Guid para string dentro dos Handlers
+Durante o desenvolvimento enfrentei e resolvi:
 
-Inconsistências entre id e Id (CamelCase vs PascalCase)
+- ❌ Conflitos de UUID Legacy vs Standard  
+- ❌ Erro 401 (Audience e Scope no Keycloak)  
+- ❌ Erro 500 por métodos não implementados  
+- ❌ Erros de CORS ao mudar porta (5173 → 3000)  
+- ❌ Conflitos de serialização de GUID  
+- ❌ Problemas de import de Realm incompatível entre versões do Keycloak  
+- ❌ Falhas de Healthcheck impedindo containers de subir  
+- ❌ Impacto de CPU na inicialização do Keycloak  
 
-Cada um desses pontos exigiu análise, testes e estudo — e foram fundamentais para consolidar a estabilidade do sistema.
+Cada erro foi analisado tecnicamente até a raiz do problema.
 
-🔄 Consolidação e UX Moderna
+---
 
-No terceiro dia, destravei definitivamente as funcionalidades de Create e Update, limpando referências ambíguas do MediatR.
+# 🖥️ Teste em Dois Ambientes Diferentes
 
-Também unifiquei Commands e Handlers, deixando a estrutura mais simples, coesa e fácil de manter no longo prazo.
+Um ponto extremamente importante do projeto foi a validação em dois computadores distintos.
 
-No frontend, implementei:
+## 🖥️ Máquina 1
 
-Lógica visual de alerta para estoque baixo
+- 8 CPUs  
+- Subida rápida dos containers  
+- Keycloak inicializando sem gargalo  
 
-Melhorias na experiência do usuário
+## 💻 Máquina 2 (ambiente “cru”)
 
-Interface refinada inspirada em layouts modernos (padrão Dribbble)
+- 2 CPUs  
+- Subida significativamente mais lenta  
+- Alto consumo de CPU pelo Keycloak  
+- Necessidade de ajuste de memória Java  
 
-Utilizei Tailwind CSS para garantir uma interface responsiva, limpa e consistente.
+### 🎯 Conclusão Técnica
 
-🔐 Evolução para um Sistema Corporativo
+A aplicação é funcional em ambos ambientes, porém o tempo de inicialização é diretamente impactado pela quantidade de CPUs disponíveis, principalmente pelo processo de bootstrap do Keycloak (Quarkus + Liquibase + Infinispan).
 
-O projeto evoluiu de um simples CRUD para uma aplicação com características corporativas:
+Isso demonstra:
 
-Dashboard com métricas (Total de Itens, Valor de Estoque, Alertas)
+- Entendimento de impacto de infraestrutura  
+- Teste real de portabilidade  
+- Validação prática de ambiente corporativo  
 
-CRUD completo em tempo real
+---
 
-Integração com autenticação via Keycloak
+# 🌐 Comunicação Frontend ↔ Backend
 
-Controle de acesso baseado em Roles (Admin e Viewer)
+- Axios configurado com interceptor para refresh automático de token  
+- Header `Authorization: Bearer`  
+- CORS corretamente configurado no backend  
 
-Validações no frontend para melhorar performance e experiência
+Testes realizados via:
 
-🧠 Tomada de Decisões Técnicas Durante a Jornada
+- Swagger  
+- Curl  
+- Postman  
+- Navegador  
 
-Durante o desenvolvimento, algo que foi essencial não foi apenas fazer funcionar, mas entender por que cada escolha estava sendo feita. Em vários momentos existiam caminhos diferentes, e cada decisão foi tomada pensando em desempenho, organização, escalabilidade e principalmente experiência do usuário.
+---
 
-🎨 Por que Tailwind CSS e não CSS puro?
+# 📊 Funcionalidades Implementadas
 
-Decisão: Utilizar classes utilitárias diretamente no HTML.
+- ✔ CRUD completo de Produtos  
+- ✔ CRUD completo de Categorias  
+- ✔ Dashboard com métricas  
+- ✔ Alerta visual para estoque baixo  
+- ✔ Controle de acesso por role  
+- ✔ Validação de dados no frontend  
+- ✔ Persistência estável no MongoDB  
+- ✔ Ambiente totalmente dockerizado  
 
-Motivo: O Tailwind permitiu uma prototipagem muito mais rápida e consistente. Além disso, ele remove automaticamente CSS não utilizado no build final, deixando a aplicação mais leve do que bibliotecas mais pesadas como Bootstrap. Isso me permitiu focar mais na lógica do sistema sem perder qualidade visual.
+---
 
-🔐 Por que Roles (Admin/Viewer) no Frontend?
+# 🐳 Execução do Projeto
 
-Decisão: Esconder botões e bloquear funções com base no token.
+```bash
+git clone <repo>
+cd HypeSoft
+docker compose up -d --build
 
-Motivo: Experiência do usuário. Não faz sentido permitir que um usuário clique em “Excluir” para depois receber um erro 403 Forbidden. Ao controlar isso no frontend, evitei frustração e deixei a interface mais inteligente e profissional.
+## 🔗 URLs de Acesso
 
-🧩 Por que usar React.Fragment na tabela?
+- **Frontend:** http://localhost:3000  
+- **API:** http://localhost:5000  
+- **Swagger:** http://localhost:5000/swagger  
+- **Keycloak:** http://localhost:8080  
+- **Mongo Express:** http://localhost:8081  
 
-Decisão: Utilizar **<React.Fragment>** para envolver múltiplas linhas.
+---
 
-Motivo: Estrutura HTML válida. Uma **<table>** não aceita **<div>** diretamente entre **<tr>**. O Fragment permitiu que cada produto ocupasse duas linhas (dados principais e descrição expandida) sem quebrar o layout ou gerar erro estrutural.
+# 🧩 Decisões Técnicas Estratégicas
 
-🎯 Por que Lucide React para ícones?
+## 🎨 Por que Tailwind?
 
-Decisão: Utilizar uma biblioteca de ícones vetoriais leves.
+- Build enxuto  
+- Alta velocidade de prototipação  
+- CSS não utilizado removido automaticamente  
 
-Motivo: Os ícones são leves, altamente customizáveis e passam uma sensação mais profissional. Ícones como o de alerta para estoque baixo ajudam o usuário a identificar problemas visualmente muito mais rápido do que apenas texto.
+## 🔐 Por que controle de role no frontend?
 
-⚡ Por que validar valores negativos no Frontend?
+- Melhor UX  
+- Evita erros 403 desnecessários  
+- Interface mais inteligente  
 
-Decisão: Bloquear preços menores que zero antes de enviar para a API.
+## 🏗️ Por que Clean Architecture?
 
-Motivo: Redução de carga no servidor e resposta imediata ao usuário. Embora o backend também valide, impedir o erro antes da requisição economiza processamento e melhora a experiência.
+- Escalabilidade  
+- Testabilidade  
+- Organização profissional  
 
-🏗️ Por que Clean Architecture e unificação de Commands/Handlers?
+## 🔄 Por que importar Realm via JSON?
 
-Decisão: Separar responsabilidades em camadas (Domain, Application, Infrastructure e API) e unificar Commands com seus respectivos Handlers.
+- Garantia de portabilidade  
+- Ambiente replicável em qualquer máquina  
+- Elimina dependência de configuração manual  
 
-Motivo: Manutenibilidade e escalabilidade. Essa organização evita acoplamento excessivo, facilita testes e permite que o sistema cresça de forma estruturada. A unificação também reduziu ambiguidade no MediatR e deixou o código mais claro.
+---
 
-🎯 Conclusão
+# 📈 Evolução do Projeto
 
-Concluir esse projeto foi uma experiência extremamente desafiadora e transformadora para mim. Foram cinco dias intensos de construção, testes, erros, ajustes e muito aprendizado prático. Cada problema resolvido — seja de arquitetura, integração, autenticação ou banco de dados — contribuiu diretamente para o meu amadurecimento técnico.
+O sistema começou como um CRUD simples e evoluiu para uma aplicação com características corporativas reais:
 
-Esse desafio realmente foi um grande quebra-cabeça, com momentos de frustração e momentos de conquista, mas justamente por isso ele se tornou tão valioso. Sinto que, ao finalizar o projeto, evoluí não apenas na parte técnica, mas também na forma de raciocinar, investigar problemas e estruturar soluções de maneira mais profissional.
+- Autenticação centralizada  
+- Controle de acesso  
+- Integração com Docker  
+- Validação em múltiplos ambientes  
+- Testes de infraestrutura  
+- Resolução de problemas de produção simulados  
+
+---
+
+# 🎯 Conclusão
+
+Este projeto foi um divisor de águas no meu aprendizado.
+
+Mais do que implementar funcionalidades, aprendi a:
+
+- Investigar problemas reais  
+- Entender infraestrutura  
+- Corrigir conflitos de versão  
+- Trabalhar com autenticação corporativa  
+- Validar ambiente em múltiplas máquinas  
+- Pensar como desenvolvedor de produto, não apenas codificador  
+
+Foi um grande quebra-cabeça técnico — e cada peça resolvida contribuiu diretamente para minha evolução como desenvolvedor.

@@ -4,6 +4,7 @@ using MongoDB.Driver;
 
 namespace Hypesoft.Infrastructure.Repositories;
 
+// Essa classe implementa a interface ICategoryRepository, fornecendo os métodos para manipular os dados de categorias no banco de dados MongoDB. Ela utiliza o IMongoDatabase para acessar a coleção de categorias e realizar as operações CRUD (Create, Read, Update, Delete). Cada método é assíncrono para melhorar a performance e escalabilidade da aplicação.
 public class CategoryRepository(IMongoDatabase database) : ICategoryRepository
 {
     private readonly IMongoCollection<Category> _categories = database.GetCollection<Category>("Categories");

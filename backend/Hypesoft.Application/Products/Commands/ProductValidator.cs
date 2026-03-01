@@ -1,6 +1,5 @@
 //Criação e validação do comando para criar um produto
 
-
 using FluentValidation;
 
 namespace Hypesoft.Application.Products.Commands;

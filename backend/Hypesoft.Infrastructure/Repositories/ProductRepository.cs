@@ -4,6 +4,7 @@ using MongoDB.Driver;
 
 namespace Hypesoft.Infrastructure.Repositories;
 
+// Essa classe implementa a interface IProductRepository, fornecendo os métodos para manipular os dados de produtos no banco de dados MongoDB. Ela utiliza o IMongoDatabase para acessar a coleção de produtos e realizar as operações CRUD (Create, Read, Update, Delete). Cada método é assíncrono para melhorar a performance e escalabilidade da aplicação.
 public class ProductRepository : IProductRepository
 {
     private readonly IMongoCollection<Product> _products;

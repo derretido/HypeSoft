@@ -18,7 +18,7 @@ api.interceptors.request.use(
     }
 
     if (keycloak.token) {
-      // ✅ não sobrescreve headers, só seta
+      // não sobrescreve headers, só seta
         config.headers = config.headers ?? {};
         (config.headers as any)["Authorization"] = `Bearer ${keycloak.token}`;
     }
