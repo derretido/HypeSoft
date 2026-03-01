@@ -7,6 +7,20 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  mongo-express:
+    image: mongo-express:latest
+    container_name: hypesoft_mongo_express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_BASICAUTH: "false"
+    depends_on:
+      - mongodb
+
+# Essa parte foi a mais dificil de configurar, tive que ler a documentação do Keycloak e testar várias opções de configuração para conseguir fazer ele funcionar corretamente com o backend. O mais importante foi configurar as variáveis de 
+# ambiente para criar o usuário admin e permitir o acesso via HTTP, além de montar os volumes para persistir os dados e importar o realm.
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: hypesoft_auth
@@ -46,7 +60,7 @@ services:
       dockerfile: Dockerfile
     container_name: hypesoft_web
     ports:
-      - "5173:80"
+      - "3000:80"
     depends_on:
       - backend
 
