@@ -25,15 +25,6 @@ services:
     volumes:
       - keycloak_data:/opt/keycloak/data
       - ./keycloak/import:/opt/keycloak/data/import
-    healthcheck:
-      # healthcheck simples (sem grep) e mais tolerante
-      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/health/ready >/dev/null 2>&1 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 120
-      start_period: 120s
-    cpus: 1.5
-    mem_limit: 1024m
 
   backend:
     build:
@@ -46,10 +37,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__MongoDb=mongodb://mongodb:27017/HypesoftDb
     depends_on:
-      mongodb:
-        condition: service_started
-      keycloak:
-        condition: service_healthy
+      - mongodb
+      - keycloak
 
   frontend:
     build:
@@ -59,8 +48,7 @@ services:
     ports:
       - "5173:80"
     depends_on:
-      backend:
-        condition: service_started
+      - backend
 
 volumes:
   mongo_data:
