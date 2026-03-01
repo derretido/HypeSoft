@@ -16,7 +16,7 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_HOSTNAME_STRICT: "false"
       KC_HTTP_ENABLED: "true"
-      # ajuda o Keycloak a reconhecer os headers de proxy, necessário para o ambiente de desenvolvimento
+      KC_HEALTH_ENABLED: "true"
       KC_PROXY_HEADERS: "xforwarded"
     ports:
       - "8080:8080"
@@ -24,10 +24,11 @@ services:
       - keycloak_data:/opt/keycloak/data
       - ./keycloak/import:/opt/keycloak/data/import
     healthcheck:
-      test: ["CMD", "sh", "-c", "wget -qO- http://localhost:8080/health/ready | grep -q UP"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/health/ready | grep -q '\"status\":\"UP\"'"]
       interval: 10s
       timeout: 5s
       retries: 60
+      start_period: 40s
 
   backend:
     build:
