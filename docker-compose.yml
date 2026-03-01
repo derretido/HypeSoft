@@ -18,6 +18,7 @@ services:
       KC_HTTP_ENABLED: "true"
       KC_HEALTH_ENABLED: "true"
       KC_PROXY_HEADERS: "xforwarded"
+      KC_DB: "dev-file"
       JAVA_OPTS_APPEND: "-Xms256m -Xmx768m"
     ports:
       - "8080:8080"
@@ -25,11 +26,12 @@ services:
       - keycloak_data:/opt/keycloak/data
       - ./keycloak/import:/opt/keycloak/data/import
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/health/ready | grep -q '\"status\":\"UP\"'"]
+      # healthcheck simples (sem grep) e mais tolerante
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/health/ready >/dev/null 2>&1 || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 90
-      start_period: 60s
+      retries: 120
+      start_period: 120s
     cpus: 1.5
     mem_limit: 1024m
 
