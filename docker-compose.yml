@@ -8,7 +8,7 @@ services:
       - mongo_data:/data/db
 
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
+    image: quay.io/keycloak/keycloak:26.0.7
     container_name: hypesoft_auth
     command: start-dev --import-realm
     environment:
@@ -18,6 +18,7 @@ services:
       KC_HTTP_ENABLED: "true"
       KC_HEALTH_ENABLED: "true"
       KC_PROXY_HEADERS: "xforwarded"
+      JAVA_OPTS_APPEND: "-Xms256m -Xmx768m"
     ports:
       - "8080:8080"
     volumes:
@@ -27,8 +28,10 @@ services:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8080/health/ready | grep -q '\"status\":\"UP\"'"]
       interval: 10s
       timeout: 5s
-      retries: 60
-      start_period: 40s
+      retries: 90
+      start_period: 60s
+    cpus: 1.5
+    mem_limit: 1024m
 
   backend:
     build:
